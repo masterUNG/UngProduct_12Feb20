@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ungproduct/utility/my_style.dart';
 import 'package:ungproduct/utility/normal_dialog.dart';
@@ -137,6 +138,21 @@ class _RegisterState extends State<Register> {
   Future<void> registerThread()async{
 
     String url = 'https://www.androidthai.in.th/feb13/addUserUng.php?isAdd=true&Name=$name&User=$user&Password=$password';
+
+    try {
+
+      Response response = await Dio().get(url);
+      print('response = $response');
+
+      if (response.toString() == 'true') {
+        Navigator.of(context).pop();
+      } else {
+        normalDialog(context, 'Register False', 'Try Again Register False');
+      }
+      
+    } catch (e) {
+      
+    }
 
   }
 
